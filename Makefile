@@ -1,4 +1,5 @@
 SRC = $(wildcard src/*.c)
+HDR = $(wildcard src/*.h)
 OBJ = ${SRC:.c=.o}
 OUT = iR_dev
 
@@ -6,7 +7,7 @@ OUT = iR_dev
 CC = clang
 clang = $(shell which clang 2> /dev/null)
 ifeq (, $(clang))
-	CC = gcc
+	CC = g++
 endif
 
 $(OUT): $(OBJ)
@@ -14,7 +15,7 @@ $(OUT): $(OBJ)
 	@printf "\e[33mLinking\e[90m %s\e[0m\n" $@
 	@printf "\e[34mDone!\e[0m\n"
 
-%.o: %.c
+%.o: %.c $(HDR)
 	@$(CC) -c $< -o $@
 	@printf "\e[36mCompile\e[90m %s\e[0m\n" $@
 
