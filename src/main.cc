@@ -1,20 +1,29 @@
 #include <iostream>
-#include "example/example.h"
+#include <string>
+#include <opencv2/opencv.hpp>
 
+using namespace cv;
 using namespace std;
 
-int main(int argc, char** argv) {
-  int val = add(1, 3);
+int main(int argc, char **argv) {
+ if ( argc != 2 )
+ {
+     printf("usage: DisplayImage.out <Image_Path>\n");
+     return -1;
+ }
 
-  Vector2 vec(0.0, 0.0);
-  vec.set(2.5, 1.0);
-  tuple<float, float> coords = vec.get();
+ Mat image;
+ image = imread( argv[1], 1 );
 
-  cout << val << endl;
-  cout << std::get<0>(coords) << endl;
-  cout << std::get<1>(coords) << endl;
-  cout << "HELLO MEOW" << endl;
-  
+ if ( !image.data )
+ {
+     printf("No image data \n");
+     return -1;
+ }
+ namedWindow("Display Image", WINDOW_AUTOSIZE );
+ imshow("Display Image", image);
 
-  return 0;
+ waitKey(0);
+
+ return 0;   
 }
