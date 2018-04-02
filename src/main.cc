@@ -14,7 +14,7 @@ int main(int argc, char **argv) {
 
  Mat image;
  image = imread( argv[1], 1 );
-
+ cout << image << endl;
  if ( !image.data )
  {
      printf("No image data \n");
