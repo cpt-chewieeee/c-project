@@ -24,6 +24,7 @@ int main(int argc, char **argv) {
  imshow("Display Image", image);
 
  /*********************************************/
+ // https://docs.opencv.org/3.2.0/d1/dee/tutorial_moprh_lines_detection.html
 
  Mat gray;
  if (image.channels() == 3) {
@@ -54,6 +55,8 @@ int main(int argc, char **argv) {
  // Show extracted horizontal lines
  imshow("horizontal", horizontal);
 
+ /*********************************************/
+
  int verticalsize = vertical.rows / 30;
  // Create structure element for extracting vertical lines through morphology operations
  Mat verticalStructure = getStructuringElement(MORPH_RECT, Size( 1,verticalsize));
@@ -62,6 +65,8 @@ int main(int argc, char **argv) {
  dilate(vertical, vertical, verticalStructure, Point(-1, -1));
  // Show extracted vertical lines
  imshow("vertical", vertical);
+
+ /*********************************************/
 
  bitwise_not(vertical, vertical);
  imshow("vertical_bit", vertical);
@@ -75,10 +80,16 @@ int main(int argc, char **argv) {
  Mat edges;
  adaptiveThreshold(vertical, edges, 255, CV_ADAPTIVE_THRESH_MEAN_C, THRESH_BINARY, 3, -2);
  imshow("edges", edges);
+
+ /*********************************************/
+
  // Step 2
  Mat kernel = Mat::ones(2, 2, CV_8UC1);
  dilate(edges, edges, kernel);
  imshow("dilate", edges);
+
+ /*********************************************/
+
  // Step 3
  Mat smooth;
  vertical.copyTo(smooth);
@@ -88,6 +99,8 @@ int main(int argc, char **argv) {
  smooth.copyTo(vertical, edges);
  // Show final result
  imshow("smooth", vertical);
+
+ /*********************************************/
 
  waitKey(0);
 
