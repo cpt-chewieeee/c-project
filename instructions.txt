@@ -1,0 +1,8 @@
+# to install lsusb for macos 
+```brew update && brew tap jlhonora/lsusb && brew install lsusb```
+
+# install libusb
+brew install libusb
+
+## view where its installed
+brew list libusb
